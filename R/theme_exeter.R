@@ -38,7 +38,7 @@ exeter_theme_colors <- c(
   dark       = exeter_palette[['dark_green']]
 )
 
-#' University of Exeter ggplot theme colour palette - up to 9 discrete colours
+#' University of Exeter ggplot theme colour palette - up to 10 discrete colours
 #'
 #' @format character vector of hex code strings
 #' @export
@@ -61,8 +61,9 @@ exeter_theme_colors_discrete <- c(
 #'
 #' @examples
 #' library(ggplot2)
+#' library(palmerpenguins)
 #'
-#' ggplot(palmerpenguins::penguins, aes(x = flipper_length_mm, y = bill_length_mm)) +
+#' ggplot(penguins, aes(x = flipper_length_mm, y = bill_length_mm)) +
 #'   geom_point(color =  exeter_theme_colors["medium"]) +
 #'   geom_smooth(method = 'lm',
 #'               color = exeter_theme_colors["dark"],
@@ -74,7 +75,7 @@ exeter_theme_colors_discrete <- c(
 #'        y = "Bill length (mm)") +
 #'   theme_exeter()
 #'
-#' ggplot(palmerpenguins::penguins, aes(x = flipper_length_mm, y = bill_length_mm)) +
+#' ggplot(penguins, aes(x = flipper_length_mm, y = bill_length_mm)) +
 #'   geom_point(aes(color = body_mass_g)) +
 #'   geom_smooth(method = 'lm',
 #'               color = exeter_theme_colors["dark"],
@@ -88,7 +89,7 @@ exeter_theme_colors_discrete <- c(
 #'   theme_exeter() +
 #'   scale_color_exeter()
 #'
-#' ggplot(palmerpenguins::penguins, aes(flipper_length_mm)) +
+#' ggplot(penguins, aes(flipper_length_mm)) +
 #'   geom_density(aes(fill=factor(species)), alpha=0.8) +
 #'   labs(title="Density plot of flipper length by species",
 #'        subtitle = "Illustrating discrete scale",
@@ -98,7 +99,7 @@ exeter_theme_colors_discrete <- c(
 #'   theme_exeter() +
 #'   scale_fill_exeter_discrete()
 #'
-#' palmerpenguins::penguins |> na.omit() |>
+#' penguins |> na.omit() |>
 #'   dplyr::mutate(body_mass_g_qt = as.factor(cut(body_mass_g, breaks=quantile(body_mass_g, probs=seq(0,1,0.1)), include=T, labels=F))) |>
 #'   ggplot(aes(x=body_mass_g_qt, y=flipper_length_mm, fill=body_mass_g_qt)) +
 #'     geom_boxplot() +
@@ -107,9 +108,8 @@ exeter_theme_colors_discrete <- c(
 #'          caption = "Source: {palmerpenguins} R package",
 #'          x="Decile of body mass",
 #'          y="Flipper length(mm)") +
-#'     theme_exeter() +
-#'     scale_fill_exeter_discrete() +
-#'     theme(legend.position="none")
+#'     theme_exeter(legend.position="none") +   # do not show legend
+#'     scale_fill_exeter_discrete() 
 #'
 theme_exeter <- function(exeter_font = TRUE, ...){
   
@@ -121,7 +121,7 @@ theme_exeter <- function(exeter_font = TRUE, ...){
     sysfonts::font_add_google(name = "Outfit", family = font_family)
   }
 
-  # CUSTOM THEME:
+  # University of Exeter theme
   ggplot2::theme(
     plot.background = element_rect(fill = exeter_theme_colors["background"]),
     panel.grid.minor = element_blank(),

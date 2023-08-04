@@ -1,7 +1,7 @@
 # theme_exeter
-R ggplot theme matching the University of Exeter colour scheme, and using the "Outfit" font
+R ggplot theme matching the [University of Exeter](https://ex.ac.uk) branding. Uses the same colour scheme and font ("Outfit")
 
-Syntax based on that used in the [{ThemePark}](https://github.com/MatthewBJane/theme_park) R package.
+Syntax based on that used in the {[ThemePark](https://github.com/MatthewBJane/theme_park)} R package.
 
 
 # Installation
@@ -86,9 +86,8 @@ palmerpenguins::penguins |> na.omit() |>
          caption = "Source: {palmerpenguins} R package",
          x="Decile of body mass",
          y="Flipper length(mm)") +
-    theme_exeter() +
-    scale_fill_exeter_discrete() +
-    theme(legend.position="none")
+    theme_exeter(legend.position="none") +  # do not show legend
+    scale_fill_exeter_discrete()
 ```
 <img src="man/figures/fig4.png" width="100%" />
 
