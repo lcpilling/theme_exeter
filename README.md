@@ -1,5 +1,5 @@
 # theme_exeter
-R ggplot theme matching the University of Exeter colour scheme
+R ggplot theme matching the University of Exeter colour scheme, and using the "Outfit" font
 
 
 # Installation
