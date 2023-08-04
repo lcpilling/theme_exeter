@@ -1,6 +1,8 @@
 # theme_exeter
 R ggplot theme matching the University of Exeter colour scheme, and using the "Outfit" font
 
+Syntax based on that used in the [{ThemePark}](https://github.com/MatthewBJane/theme_park) R package.
+
 
 # Installation
 Requires packages `ggplot2`, `showtext` and `sysfonts`
