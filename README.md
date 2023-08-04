@@ -7,7 +7,7 @@ Requires packages `ggplot2`, `showtext` and `sysfonts`
 
 Source the script from GitHub (or run locally) to get access to `theme_exeter()`
 ``` r
-source("https://raw.githubusercontent.com/lukepilling/theme_exeter/main/theme_exeter.R")
+source("https://raw.githubusercontent.com/lukepilling/theme_exeter/main/R/theme_exeter.R")
 ```
 
 # Examples
