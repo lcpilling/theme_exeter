@@ -26,11 +26,39 @@ exeter_palette <- c(
 #'
 #' @examples
 #' exeter_theme_colors
+#' exeter_theme_colors_dark
+#' exeter_theme_colors_light
 #'
 exeter_theme_colors <- c(
   background = exeter_palette[['dark_green']],
   text       = '#FFFFFF',
   panel      = '#FFFFFF',
+  border     = exeter_palette[['deep_green']],
+  lighter    = exeter_palette[['highlight_green']],
+  light      = exeter_palette[['rich_green']],
+  medium     = exeter_palette[['deep_green']],
+  dark       = exeter_palette[['dark_green']]
+)
+
+#' @rdname exeter_theme_colors_dark
+#' @export
+exeter_theme_colors_dark <- c(
+  background = exeter_palette[['night_green']],
+  text       = exeter_palette[['highlight_green']],
+  panel      = exeter_palette[['night_green']],
+  border     = exeter_palette[['bright_green']],
+  lighter    = exeter_palette[['highlight_green']],
+  light      = exeter_palette[['bright_green']],
+  medium     = exeter_palette[['rich_green']],
+  dark       = exeter_palette[['deep_green']]
+)
+
+#' @rdname exeter_theme_colors_light
+#' @export
+exeter_theme_colors_light <- c(
+  background = "#FFFFFF",
+  text       = exeter_palette[['dark_green']],
+  panel      = "#FFFFFF",
   border     = exeter_palette[['deep_green']],
   lighter    = exeter_palette[['highlight_green']],
   light      = exeter_palette[['rich_green']],
@@ -111,7 +139,35 @@ exeter_theme_colors_discrete <- c(
 #'     theme_exeter(legend.position="none") +   # do not show legend
 #'     scale_fill_exeter_discrete() 
 #'
-theme_exeter <- function(exeter_font = TRUE, ...){
+#' # dark mode
+#' ggplot(palmerpenguins::penguins, aes(x = flipper_length_mm, y = bill_length_mm)) +
+#'   geom_point(color =  exeter_theme_colors["medium"]) +
+#'   geom_smooth(method = 'lm',
+#'               color = exeter_theme_colors["lighter"],
+#'               fill =  exeter_theme_colors["light"]) +
+#'   labs(title = 'University of Exeter theme', 
+#'        subtitle = "Antarctic penguins: flipper vs. bill length",
+#'        caption = "Source: {palmerpenguins} R package",
+#'        x = "Flipper length (mm)",
+#'        y = "Bill length (mm)") +
+#'   theme_exeter(dark=TRUE)
+#' 
+#' # light mode
+#' showtext::showtext_opts(dpi=300)
+#' 
+#' ggplot(palmerpenguins::penguins, aes(x = flipper_length_mm, y = bill_length_mm)) +
+#'   geom_point(color =  exeter_theme_colors["medium"]) +
+#'   geom_smooth(method = 'lm',
+#'               color = exeter_theme_colors["dark"],
+#'               fill =  exeter_theme_colors["light"]) +
+#'   labs(title = 'University of Exeter theme', 
+#'        subtitle = "Antarctic penguins: flipper vs. bill length",
+#'        caption = "Source: {palmerpenguins} R package",
+#'        x = "Flipper length (mm)",
+#'        y = "Bill length (mm)") +
+#'   theme_exeter(light=TRUE)
+#'
+theme_exeter <- function(exeter_font = TRUE, dark = FALSE, light = FALSE, ...){
   
   # Add custom font from google fonts
   font_family = "Arial"
@@ -120,28 +176,34 @@ theme_exeter <- function(exeter_font = TRUE, ...){
     showtext::showtext_auto()
     sysfonts::font_add_google(name = "Outfit", family = font_family)
   }
+  
+  # which color palette to use?
+  these_cols = exeter_theme_colors
+  if (dark) these_cols = exeter_theme_colors_dark
+  if (light) these_cols = exeter_theme_colors_light
 
   # University of Exeter theme
   ggplot2::theme(
-    plot.background = element_rect(fill = exeter_theme_colors["background"]),
+    plot.background = element_rect(fill = these_cols["background"]),
     panel.grid.minor = element_blank(),
     panel.grid.major = element_blank(),
-    text = element_text(color = exeter_theme_colors["text"], family = font_family),
+    text = element_text(color = these_cols["text"], family = font_family),
     title = element_text(size=20),
-    panel.background = element_rect(fill = exeter_theme_colors["panel"]),
-    panel.border = element_rect(fill = NA, color = exeter_theme_colors["border"],linewidth=1.2),
+    panel.background = element_rect(fill = these_cols["panel"]),
+    panel.border = element_rect(fill = NA, color = these_cols["border"],linewidth=1.2),
     axis.title = element_text(size=17),
-    axis.text = element_text(size=13,color = exeter_theme_colors["text"]),
-    axis.ticks = element_line(color = exeter_theme_colors["border"],linewidth=1),
-    strip.background = element_rect(fill = exeter_theme_colors["background"], colour = exeter_theme_colors["border"]),
-    strip.text = element_text(colour = exeter_theme_colors["text"]),
-    legend.background = element_rect(fill = exeter_theme_colors["background"], color = NA),
+    axis.text = element_text(size=13,color = these_cols["text"]),
+    axis.ticks = element_line(color = these_cols["border"],linewidth=1),
+    strip.background = element_rect(fill = these_cols["background"], colour = these_cols["border"]),
+    strip.text = element_text(colour = these_cols["text"]),
+    legend.background = element_rect(fill = these_cols["background"], color = NA),
     legend.box.background = element_blank(),
     legend.key = element_blank(),
     plot.title.position = 'plot', 
     plot.caption.position = 'plot',
     ...
   )
+  
 }
 
 #' University of Exeter ggplot theme - colour scales

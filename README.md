@@ -91,8 +91,39 @@ palmerpenguins::penguins |> na.omit() |>
 ```
 <img src="man/figures/fig4.png" width="100%" />
 
+## Dark mode
 
+``` r 
+ggplot(palmerpenguins::penguins, aes(x = flipper_length_mm, y = bill_length_mm)) +
+  geom_point(color =  exeter_theme_colors["medium"]) +
+  geom_smooth(method = 'lm',
+              color = exeter_theme_colors["lighter"],
+              fill =  exeter_theme_colors["light"]) +
+  labs(title = 'University of Exeter theme', 
+       subtitle = "Antarctic penguins: flipper vs. bill length",
+       caption = "Source: {palmerpenguins} R package",
+       x = "Flipper length (mm)",
+       y = "Bill length (mm)") +
+  theme_exeter(dark=TRUE)
+```
+<img src="man/figures/fig5.png" width="100%" />
 
+## Light mode
+
+``` r 
+ggplot(palmerpenguins::penguins, aes(x = flipper_length_mm, y = bill_length_mm)) +
+  geom_point(color =  exeter_theme_colors["medium"]) +
+  geom_smooth(method = 'lm',
+              color = exeter_theme_colors["dark"],
+              fill =  exeter_theme_colors["light"]) +
+  labs(title = 'University of Exeter theme', 
+       subtitle = "Antarctic penguins: flipper vs. bill length",
+       caption = "Source: {palmerpenguins} R package",
+       x = "Flipper length (mm)",
+       y = "Bill length (mm)") +
+  theme_exeter(light=TRUE)
+```
+<img src="man/figures/fig6.png" width="100%" />
 
 
 
