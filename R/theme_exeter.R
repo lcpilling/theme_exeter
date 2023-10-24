@@ -3,6 +3,10 @@
 ## 4th August 2023
 ## https://github.com/lukepilling/theme_exeter
 
+require(showtext)
+require(sysfonts)
+require(ggplot2)
+
 #' University of Exeter primary palette - https://brand.exeter.ac.uk/colour/
 #'
 #' @format character vector of hex code strings
@@ -180,36 +184,36 @@ theme_exeter <- function(exeter_font = TRUE,
 	# Add custom font from google fonts
 	font_family = "Arial"
 	if (exeter_font) {
-	font_family = "Exeter"
-	showtext::showtext_auto()
-	sysfonts::font_add_google(name = "Outfit", family = font_family)
+		font_family = "Exeter"
+		showtext::showtext_auto()
+		sysfonts::font_add_google(name = "Outfit", family = font_family)
 	}
 
 	# which color palette to use?
 	these_cols = exeter_theme_colors
-	if (dark) these_cols = exeter_theme_colors_dark
+	if (dark)  these_cols = exeter_theme_colors_dark
 	if (light) these_cols = exeter_theme_colors_light
 
 	# University of Exeter theme
 	ggplot2::theme(
-	plot.background = element_rect(fill = these_cols["background"]),
-	panel.grid.minor = element_blank(),
-	panel.grid.major = element_blank(),
-	text = element_text(color = these_cols["text"], family = font_family),
-	title = element_text(size=20),
-	panel.background = element_rect(fill = these_cols["panel"]),
-	panel.border = element_rect(fill = NA, color = these_cols["border"],linewidth=1.2),
-	axis.title = element_text(size=17),
-	axis.text = element_text(size=13,color = these_cols["text"]),
-	axis.ticks = element_line(color = these_cols["border"],linewidth=1),
-	strip.background = element_rect(fill = these_cols["background"], colour = these_cols["border"]),
-	strip.text = element_text(colour = these_cols["text"]),
-	legend.background = element_rect(fill = these_cols["background"], color = NA),
-	legend.box.background = element_blank(),
-	legend.key = element_blank(),
-	plot.title.position = 'plot', 
-	plot.caption.position = 'plot',
-	...
+		plot.background = element_rect(fill = these_cols["background"]),
+		panel.grid.minor = element_blank(),
+		panel.grid.major = element_blank(),
+		text = element_text(color = these_cols["text"], family = font_family),
+		title = element_text(size=20),
+		panel.background = element_rect(fill = these_cols["panel"]),
+		panel.border = element_rect(fill = NA, color = these_cols["border"],linewidth=1.2),
+		axis.title = element_text(size=17),
+		axis.text = element_text(size=13,color = these_cols["text"]),
+		axis.ticks = element_line(color = these_cols["border"],linewidth=1),
+		strip.background = element_rect(fill = these_cols["background"], colour = these_cols["border"]),
+		strip.text = element_text(colour = these_cols["text"]),
+		legend.background = element_rect(fill = these_cols["background"], color = NA),
+		legend.box.background = element_blank(),
+		legend.key = element_blank(),
+		plot.title.position = 'plot', 
+		plot.caption.position = 'plot',
+		...
 	)
 
 }
@@ -251,19 +255,19 @@ scale_fill_exeter_discrete <- function(...) {
 
 	# repeat discrete colors up to n times for a given palette pal
 	rot_pal <- function(pal) {
-	pal <- unname(pal)
-	function(n) {
-	  if (n <= length(pal)) {
-		pal[seq_len(n)]
-	  } else {
-		rep(pal, ceiling(n / length(pal)))[seq_len(n)]
-	  }
-	}
+		pal <- unname(pal)
+		function(n) {
+			if (n <= length(pal)) {
+				pal[seq_len(n)]
+			} else {
+				rep(pal, ceiling(n / length(pal)))[seq_len(n)]
+			}
+		}
 	}
 
 	# create discrete scale
 	ggplot2::discrete_scale(aesthetics = 'fill', scale_name = exeter_theme_colors_discrete, ...,
-						  palette = rot_pal(exeter_theme_colors_discrete))
+	                        palette = rot_pal(exeter_theme_colors_discrete))
 
 }
 
