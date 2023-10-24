@@ -266,8 +266,8 @@ scale_fill_exeter_discrete <- function(...) {
 	}
 
 	# create discrete scale
-	ggplot2::discrete_scale(aesthetics = 'fill', scale_name = exeter_theme_colors_discrete, ...,
-	                        palette = rot_pal(exeter_theme_colors_discrete))
+	ggplot2::discrete_scale(aesthetics = 'fill', scale_name = exeter_theme_colors_discrete, 
+	                        palette = rot_pal(exeter_theme_colors_discrete), ...)
 
 }
 
@@ -277,19 +277,19 @@ scale_color_exeter_discrete <- function(...) {
 
 	# repeat discrete colors up to n times for a given palette pal
 	rot_pal <- function(pal) {
-	pal <- unname(pal)
-	function(n) {
-	  if (n <= length(pal)) {
-		pal[seq_len(n)]
-	  } else {
-		rep(pal, ceiling(n / length(pal)))[seq_len(n)]
-	  }
-	}
+		pal <- unname(pal)
+		function(n) {
+			if (n <= length(pal)) {
+				pal[seq_len(n)]
+			} else {
+				rep(pal, ceiling(n / length(pal)))[seq_len(n)]
+			}
+		}
 	}
 
 	# create discrete scale
 	ggplot2::discrete_scale(aesthetics = 'color', scale_name = exeter_theme_colors_discrete,
-						  palette = rot_pal(exeter_theme_colors_discrete), ...)
+	                        palette = rot_pal(exeter_theme_colors_discrete), ...)
 
 }
 
